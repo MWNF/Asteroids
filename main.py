@@ -17,14 +17,16 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        #limits the FPS to 60 and takes the delta time return and divides to convert from ms to s
+        dt = clock.tick(60) / 1000
+        player.update(dt)
         # fill the screen black
         screen.fill((0, 0, 0), rect=None, special_flags=0)
         #draws player
         player.draw(screen)
         #refresh the screen
         pygame.display.flip()
-        #limits the FPS to 60 and takes the delta time return and divides to convert from ms to s
-        dt = clock.tick(60) / 1000
+
 
 if __name__ == "__main__":
     main()
