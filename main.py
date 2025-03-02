@@ -8,6 +8,9 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    updateable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updateable, drawable)
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
@@ -19,11 +22,12 @@ def main():
                 return
         #limits the FPS to 60 and takes the delta time return and divides to convert from ms to s
         dt = clock.tick(60) / 1000
-        player.update(dt)
+
         # fill the screen black
         screen.fill((0, 0, 0), rect=None, special_flags=0)
-        #draws player
-        player.draw(screen)
+        for draw in drawable:
+            draw.draw(screen)
+        updateable.update(dt)
         #refresh the screen
         pygame.display.flip()
 
