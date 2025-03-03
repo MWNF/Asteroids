@@ -5,6 +5,8 @@ from constants import *
 from shot import *
 
 class Player(CircleShape):
+    timer = 0
+
     def __init__(self, x, y):
         super().__init__(x, y, constants.PLAYER_RADIUS)
         self.rotation = 0
@@ -25,6 +27,8 @@ class Player(CircleShape):
         self.rotation += constants.PLAYER_TURN_SPEED * dt
 
     def update(self, dt):
+        if self.timer > 0:
+            self.timer -= dt
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
             self.rotate(dt * -1)
@@ -42,8 +46,9 @@ class Player(CircleShape):
         self.position += forward * constants.PLAYER_SPEED * dt
 
     def shoot(self):
-        bullet = Shot(self.position)
-        bullet.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
-        print(bullet)
-        print(bullet.velocity)
-        print("SHOOTING")
+        if self.timer > 0:
+            pass
+        else:
+            bullet = Shot(self.position)
+            bullet.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+            self.timer += PLAYER_SHOOT_COOLDOWN
