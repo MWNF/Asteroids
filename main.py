@@ -1,4 +1,5 @@
 import pygame
+import sys
 from constants import *
 from circleshape import *
 from player import *
@@ -29,12 +30,16 @@ def main():
                 return
         #limits the FPS to 60 and takes the delta time return and divides to convert from ms to s
         dt = clock.tick(60) / 1000
-
         # fill the screen black
         screen.fill((0, 0, 0), rect=None, special_flags=0)
         for draw in drawable:
             draw.draw(screen)
         updatable.update(dt)
+        #checking for collision
+        for asteroid in asteroids:
+            if asteroid.collision(player) == True:
+                print("Game over!")
+                sys.exit()
         #refresh the screen
         pygame.display.flip()
 
