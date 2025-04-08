@@ -19,7 +19,7 @@ def main():
     asteroid_field = pygame.sprite.Group()
     shots = pygame.sprite.Group()
     SCORE = 0
-    PLAYER_LIVES = 3
+    PLAYER_LIVES = 2
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
